@@ -3,41 +3,66 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Главсевморпуть - Калькулятор</title>
+  <title>Главсевморпуть - Сервис проводки</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <header>
-    <div class="header">
-      <div class="logo">
-        <div>
-          <div class="logo-text">ГЛАВСЕВМОРПУТЬ</div>
-          <div class="logo-sub">РОСАТОМ</div>
-        </div>
+  <header class="site-header">
+    <div class="topline">
+      <div class="brand">
+        <div class="brand-name">ГЛАВСЕВМОРПУТЬ</div>
+        <div class="brand-sub">РОСАТОМ</div>
+      </div>
+      <div class="top-actions">
+        <a href="#" class="top-link js-clickable" data-message="Переход в личный кабинет (демо).">Личный кабинет</a>
+        <a href="#" class="top-link js-clickable" data-message="Открыт раздел: Контакты диспетчерской службы.">Контакты</a>
       </div>
     </div>
 
-    <nav class="nav">
-      <a href="#" class="nav-item dropdown js-clickable" data-message="Открыт раздел: Главная">ГЛАВНАЯ</a>
-      <a href="#" class="nav-item js-clickable" data-message="Открыт раздел: Срочная информация">СРОЧНАЯ ИНФОРМАЦИЯ</a>
-      <a href="#" class="nav-item dropdown js-clickable" data-message="Открыт раздел: Официальная информация">ОФИЦИАЛЬНАЯ ИНФОРМАЦИЯ</a>
-      <a href="#" class="nav-item dropdown js-clickable" data-message="Открыт раздел: Рассмотрение заявлений">РАССМОТРЕНИЕ ЗАЯВЛЕНИЙ</a>
-      <a href="#" class="nav-item dropdown js-clickable" data-message="Открыт раздел: Ледокольная проводка">ЛЕДОКОЛЬНАЯ И ЛЕДОВАЯ ЛОЦМАНСКАЯ ПРОВОДКА</a>
-      <a href="#" class="nav-item dropdown js-clickable" data-message="Открыт раздел: Навигация и гидрометинформация">НАВИГАЦИОННАЯ И ГИДРОМЕТИНФОРМАЦИЯ</a>
-      <a href="#" class="nav-item js-clickable" data-message="Открыт раздел: Поиск и спасание">ОБЕСПЕЧЕНИЕ ПО ПОИСКУ И СПАСАНИЮ, ОБЕСПЕЧЕНИЕ ПО ЛРН</a>
+    <nav class="main-nav">
+      <a href="#" class="nav-item js-clickable" data-message="Открыт раздел: Главная">Главная</a>
+      <a href="#" class="nav-item js-clickable" data-message="Открыт раздел: Срочная информация">Срочная информация</a>
+      <a href="#" class="nav-item js-clickable" data-message="Открыт раздел: Заявки">Рассмотрение заявлений</a>
+      <a href="#" class="nav-item js-clickable" data-message="Открыт раздел: Проводка">Ледокольная проводка</a>
+      <a href="#" class="nav-item js-clickable" data-message="Открыт раздел: Гидрометинформация">Навигация и гидромет</a>
+      <a href="#" class="nav-item js-clickable" data-message="Открыт раздел: Поиск и спасание">Поиск и спасание</a>
     </nav>
   </header>
 
-  <main class="main-content">
-    <h1 class="contacts-title">КАЛЬКУЛЯТОР</h1>
+  <main>
+    <section class="hero">
+      <div class="hero-content">
+        <p class="hero-tag">Единый сервис акватории СМП</p>
+        <h1>Заявки на проводку судов ледоколами</h1>
+        <p class="hero-text">
+          Подача заявок, мониторинг маршрута и получение навигационных уведомлений
+          в одном интерфейсе.
+        </p>
+        <div class="hero-actions">
+          <button class="site-btn primary-btn" id="btn_show_calc">Калькулятор</button>
+          <button class="site-btn js-clickable" data-message="Создание заявки на проводку (демо).">Подать заявку</button>
+          <button class="site-btn js-clickable" data-message="Маршрут: Мурманск -> Дудинка (демо).">Показать маршрут</button>
+        </div>
+      </div>
+    </section>
 
-    <div class="action-panel">
-      <button class="site-btn" id="btn_show_calc">Калькулятор</button>
-      <button class="site-btn js-clickable" data-message="Отправка заявки на проводку пока в демо-режиме.">Подать заявку</button>
-      <button class="site-btn js-clickable" data-message="Маршрут проводки: Мурманск -> Дудинка (демо).">Показать маршрут</button>
-    </div>
+    <section class="services">
+      <article class="service-card js-clickable" data-message="Сервис: Реестр заявок">
+        <h3>Реестр заявок</h3>
+        <p>Контроль статусов заявок и назначений ледоколов.</p>
+      </article>
+      <article class="service-card js-clickable" data-message="Сервис: Гидрометданные">
+        <h3>Гидрометданные</h3>
+        <p>Оперативная информация о ледовой и метеорологической обстановке.</p>
+      </article>
+      <article class="service-card js-clickable" data-message="Сервис: Маршруты проводки">
+        <h3>Маршруты проводки</h3>
+        <p>Построение и согласование оптимальных маршрутов проводки.</p>
+      </article>
+    </section>
 
-    <section class="calc-wrap is-hidden" id="calc_wrap">
+    <section class="calc-section is-hidden" id="calc_wrap">
+      <h2>Калькулятор</h2>
       <div class="calculator" id="calculator">
         <div id="result" class="result">0</div>
         <div id="memory" class="memory">M: 0</div>
@@ -94,8 +119,20 @@
   </main>
 
   <footer class="footer">
-    <div>© 2026 Главсевморпуть. Все права защищены.</div>
-    <button class="fio-btn" id="btn_show_fio">ФИО</button>
+    <div class="footer-top">
+      <div class="footer-col">
+        <h4>Главсевморпуть</h4>
+        <p>Единый цифровой сервис для обеспечения проводки в акватории СМП.</p>
+      </div>
+      <div class="footer-col">
+        <a href="#" class="footer-link js-clickable" data-message="Открыт документ: регламент проводки.">Регламент проводки</a>
+        <a href="#" class="footer-link js-clickable" data-message="Открыт документ: карта рисков.">Карта рисков</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Главсевморпуть. Все права защищены.</span>
+      <button class="fio-btn" id="btn_show_fio">ФИО</button>
+    </div>
     <div class="fio-info is-hidden" id="fio_info">Анчоус Фараон Фараонович</div>
   </footer>
 
