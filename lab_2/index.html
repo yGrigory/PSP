@@ -14,23 +14,23 @@
         <div class="brand-sub">РОСАТОМ</div>
       </div>
       <div class="top-actions">
-        <a href="#" class="top-link js-clickable" data-message="Переход в личный кабинет (демо).">Личный кабинет</a>
-        <a href="#" class="top-link js-clickable" data-message="Открыт раздел: Контакты диспетчерской службы.">Контакты</a>
+        <a href="https://nsr.rosatom.ru/" target="_blank" rel="noopener noreferrer" class="top-link">Личный кабинет</a>
+        <a href="https://www.rosatom.ru/about/contacts/" target="_blank" rel="noopener noreferrer" class="top-link">Контакты</a>
       </div>
     </div>
 
     <nav class="main-nav">
-      <a href="#" class="nav-item js-clickable" data-message="Открыт раздел: Главная">Главная</a>
-      <a href="#" class="nav-item js-clickable" data-message="Открыт раздел: Срочная информация">Срочная информация</a>
-      <a href="#" class="nav-item js-clickable" data-message="Открыт раздел: Заявки">Рассмотрение заявлений</a>
-      <a href="#" class="nav-item js-clickable" data-message="Открыт раздел: Проводка">Ледокольная проводка</a>
-      <a href="#" class="nav-item js-clickable" data-message="Открыт раздел: Гидрометинформация">Навигация и гидромет</a>
-      <a href="#" class="nav-item js-clickable" data-message="Открыт раздел: Поиск и спасание">Поиск и спасание</a>
+      <a href="#hero" class="nav-item">Главная</a>
+      <a href="#services" class="nav-item">Срочная информация</a>
+      <a href="#services" class="nav-item">Рассмотрение заявлений</a>
+      <a href="#calc_wrap" class="nav-item">Ледокольная проводка</a>
+      <a href="#services" class="nav-item">Навигация и гидромет</a>
+      <a href="#footer" class="nav-item">Поиск и спасание</a>
     </nav>
   </header>
 
   <main>
-    <section class="hero">
+    <section class="hero" id="hero">
       <div class="hero-content">
         <p class="hero-tag">Единый сервис акватории СМП</p>
         <h1>Заявки на проводку судов ледоколами</h1>
@@ -40,22 +40,22 @@
         </p>
         <div class="hero-actions">
           <button class="site-btn primary-btn" id="btn_show_calc">Калькулятор</button>
-          <button class="site-btn js-clickable" data-message="Создание заявки на проводку (демо).">Подать заявку</button>
-          <button class="site-btn js-clickable" data-message="Маршрут: Мурманск -> Дудинка (демо).">Показать маршрут</button>
+          <button class="site-btn js-alert" data-message="Создание заявки на проводку (демо).">Подать заявку</button>
+          <button class="site-btn js-alert" data-message="Маршрут: Мурманск -> Дудинка (демо).">Показать маршрут</button>
         </div>
       </div>
     </section>
 
-    <section class="services">
-      <article class="service-card js-clickable" data-message="Сервис: Реестр заявок">
+    <section class="services" id="services">
+      <article class="service-card js-alert" data-message="Сервис: Реестр заявок">
         <h3>Реестр заявок</h3>
         <p>Контроль статусов заявок и назначений ледоколов.</p>
       </article>
-      <article class="service-card js-clickable" data-message="Сервис: Гидрометданные">
+      <article class="service-card js-alert" data-message="Сервис: Гидрометданные">
         <h3>Гидрометданные</h3>
         <p>Оперативная информация о ледовой и метеорологической обстановке.</p>
       </article>
-      <article class="service-card js-clickable" data-message="Сервис: Маршруты проводки">
+      <article class="service-card js-alert" data-message="Сервис: Маршруты проводки">
         <h3>Маршруты проводки</h3>
         <p>Построение и согласование оптимальных маршрутов проводки.</p>
       </article>
@@ -118,15 +118,15 @@
     </section>
   </main>
 
-  <footer class="footer">
+  <footer class="footer" id="footer">
     <div class="footer-top">
       <div class="footer-col">
         <h4>Главсевморпуть</h4>
         <p>Единый цифровой сервис для обеспечения проводки в акватории СМП.</p>
       </div>
       <div class="footer-col">
-        <a href="#" class="footer-link js-clickable" data-message="Открыт документ: регламент проводки.">Регламент проводки</a>
-        <a href="#" class="footer-link js-clickable" data-message="Открыт документ: карта рисков.">Карта рисков</a>
+        <a href="https://nsr.rosatom.ru/ru/navigator/" target="_blank" rel="noopener noreferrer" class="footer-link">Регламент проводки</a>
+        <a href="https://nsr.rosatom.ru/ru/ice/" target="_blank" rel="noopener noreferrer" class="footer-link">Карта рисков</a>
       </div>
     </div>
     <div class="footer-bottom">

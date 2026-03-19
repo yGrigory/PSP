@@ -182,11 +182,15 @@ body {
   max-width: 1200px;
   margin: 22px auto 0;
   padding: 0 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .calc-section h2 {
   color: var(--navy);
   margin-bottom: 12px;
+  text-align: center;
 }
 
 .is-hidden {

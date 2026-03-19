@@ -268,7 +268,7 @@ if (fioBtn && fioInfoNode) {
   };
 }
 
-document.querySelectorAll(".js-clickable").forEach((node) => {
+document.querySelectorAll(".js-alert").forEach((node) => {
   node.addEventListener("click", (event) => {
     event.preventDefault();
     const message = node.dataset.message || "Кнопка нажата";
