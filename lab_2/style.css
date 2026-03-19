@@ -94,6 +94,32 @@ body {
   justify-content: center;
 }
 
+.is-hidden {
+  display: none;
+}
+
+.action-panel {
+  margin-bottom: 24px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.site-btn {
+  border: 1px solid #003366;
+  background: #ffffff;
+  color: #003366;
+  padding: 10px 14px;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.site-btn:hover {
+  background: #003366;
+  color: #ffffff;
+}
+
 .calculator {
   padding: 16px;
   border-radius: 16px;
@@ -173,6 +199,28 @@ body {
   margin-top: 60px;
   font-size: 14px;
   border-top: 3px solid #ffcc00;
+}
+
+.fio-btn {
+  margin-top: 10px;
+  border: 1px solid #ffcc00;
+  background: transparent;
+  color: #ffcc00;
+  padding: 8px 14px;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.fio-btn:hover {
+  background: #ffcc00;
+  color: #003366;
+}
+
+.fio-info {
+  margin-top: 10px;
+  font-size: 16px;
+  font-weight: 700;
 }
 
 @media (max-width: 768px) {

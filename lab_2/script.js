@@ -1,6 +1,10 @@
 ﻿const resultNode = document.getElementById("result");
 const memoryNode = document.getElementById("memory");
 const calculatorNode = document.getElementById("calculator");
+const calcWrapNode = document.getElementById("calc_wrap");
+const toggleCalcBtn = document.getElementById("btn_show_calc");
+const fioBtn = document.getElementById("btn_show_fio");
+const fioInfoNode = document.getElementById("fio_info");
 
 let firstOperand = "";
 let secondOperand = "";
@@ -249,6 +253,28 @@ document.getElementById("btn_op_mem_minus").onclick = () => memoryMinus();
 document.getElementById("btn_ui_bg").onclick = () => toggleBackground();
 document.getElementById("btn_ui_text").onclick = () => toggleResultColor();
 document.getElementById("btn_ui_reset").onclick = () => resetTheme();
+
+if (toggleCalcBtn && calcWrapNode) {
+  toggleCalcBtn.onclick = () => {
+    const hidden = calcWrapNode.classList.toggle("is-hidden");
+    toggleCalcBtn.textContent = hidden ? "Калькулятор" : "Скрыть калькулятор";
+  };
+}
+
+if (fioBtn && fioInfoNode) {
+  fioBtn.onclick = () => {
+    const hidden = fioInfoNode.classList.toggle("is-hidden");
+    fioBtn.textContent = hidden ? "ФИО" : "Скрыть ФИО";
+  };
+}
+
+document.querySelectorAll(".js-clickable").forEach((node) => {
+  node.addEventListener("click", (event) => {
+    event.preventDefault();
+    const message = node.dataset.message || "Кнопка нажата";
+    alert(message);
+  });
+});
 
 updateMemory();
 updateDisplay("0");

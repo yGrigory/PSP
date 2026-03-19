@@ -18,34 +18,40 @@
     </div>
 
     <nav class="nav">
-      <a href="#" class="nav-item dropdown">ГЛАВНАЯ</a>
-      <a href="#" class="nav-item">СРОЧНАЯ ИНФОРМАЦИЯ</a>
-      <a href="#" class="nav-item dropdown">ОФИЦИАЛЬНАЯ ИНФОРМАЦИЯ</a>
-      <a href="#" class="nav-item dropdown">РАССМОТРЕНИЕ ЗАЯВЛЕНИЙ</a>
-      <a href="#" class="nav-item dropdown">ЛЕДОКОЛЬНАЯ И ЛЕДОВАЯ ЛОЦМАНСКАЯ ПРОВОДКА</a>
-      <a href="#" class="nav-item dropdown">НАВИГАЦИОННАЯ И ГИДРОМЕТИНФОРМАЦИЯ</a>
-      <a href="#" class="nav-item">ОБЕСПЕЧЕНИЕ ПО ПОИСКУ И СПАСАНИЮ, ОБЕСПЕЧЕНИЕ ПО ЛРН</a>
+      <a href="#" class="nav-item dropdown js-clickable" data-message="Открыт раздел: Главная">ГЛАВНАЯ</a>
+      <a href="#" class="nav-item js-clickable" data-message="Открыт раздел: Срочная информация">СРОЧНАЯ ИНФОРМАЦИЯ</a>
+      <a href="#" class="nav-item dropdown js-clickable" data-message="Открыт раздел: Официальная информация">ОФИЦИАЛЬНАЯ ИНФОРМАЦИЯ</a>
+      <a href="#" class="nav-item dropdown js-clickable" data-message="Открыт раздел: Рассмотрение заявлений">РАССМОТРЕНИЕ ЗАЯВЛЕНИЙ</a>
+      <a href="#" class="nav-item dropdown js-clickable" data-message="Открыт раздел: Ледокольная проводка">ЛЕДОКОЛЬНАЯ И ЛЕДОВАЯ ЛОЦМАНСКАЯ ПРОВОДКА</a>
+      <a href="#" class="nav-item dropdown js-clickable" data-message="Открыт раздел: Навигация и гидрометинформация">НАВИГАЦИОННАЯ И ГИДРОМЕТИНФОРМАЦИЯ</a>
+      <a href="#" class="nav-item js-clickable" data-message="Открыт раздел: Поиск и спасание">ОБЕСПЕЧЕНИЕ ПО ПОИСКУ И СПАСАНИЮ, ОБЕСПЕЧЕНИЕ ПО ЛРН</a>
     </nav>
   </header>
 
   <main class="main-content">
     <h1 class="contacts-title">КАЛЬКУЛЯТОР</h1>
 
-    <section class="calc-wrap">
+    <div class="action-panel">
+      <button class="site-btn" id="btn_show_calc">Калькулятор</button>
+      <button class="site-btn js-clickable" data-message="Отправка заявки на проводку пока в демо-режиме.">Подать заявку</button>
+      <button class="site-btn js-clickable" data-message="Маршрут проводки: Мурманск -> Дудинка (демо).">Показать маршрут</button>
+    </div>
+
+    <section class="calc-wrap is-hidden" id="calc_wrap">
       <div class="calculator" id="calculator">
         <div id="result" class="result">0</div>
         <div id="memory" class="memory">M: 0</div>
 
         <div class="row">
           <button class="my-btn secondary" id="btn_op_clear">C</button>
-          <button class="my-btn secondary" id="btn_op_backspace">⌫</button>
+          <button class="my-btn secondary" id="btn_op_backspace">&#9003;</button>
           <button class="my-btn secondary" id="btn_op_sign">+/-</button>
           <button class="my-btn secondary" id="btn_op_percent">%</button>
           <button class="my-btn secondary" id="btn_op_div">/</button>
         </div>
 
         <div class="row">
-          <button class="my-btn secondary" id="btn_op_sqrt">√</button>
+          <button class="my-btn secondary" id="btn_op_sqrt">&#8730;</button>
           <button class="my-btn secondary" id="btn_op_square">x²</button>
           <button class="my-btn secondary" id="btn_op_cube">x³</button>
           <button class="my-btn secondary" id="btn_op_factorial">x!</button>
@@ -88,7 +94,9 @@
   </main>
 
   <footer class="footer">
-    © 2026 Главсевморпуть. Все права защищены.
+    <div>© 2026 Главсевморпуть. Все права защищены.</div>
+    <button class="fio-btn" id="btn_show_fio">ФИО</button>
+    <div class="fio-info is-hidden" id="fio_info">Анчоус Фараон Фараонович</div>
   </footer>
 
   <script src="script.js"></script>
