@@ -1,18 +1,18 @@
-# Lab 1. Verstka (HTML + CSS)
+# ЛР 1. Верстка (HTML + CSS)
 
-## Tema
-Sevmorput, zayavki na provodku ledokolami.
+## Тема
+Севморпуть, заявки на проводку ледоколами.
 
-## Chto sdelano
-1. Sverstana tematicheskaya stranica po predmetnoy oblasti (Glavsevmorput).
-2. Dobavleny bazovye stili, struktura shapki, navigacii, kontenta i futera.
-3. Podgotovlen karkas kalkulyatora (razmetka knopok i ekrana) kak baza dlya Lab 2.
+## Что сделано
+1. Сверстана тематическая страница по предметной области (Главсевморпуть).
+2. Добавлены базовые стили, структура шапки, навигации, контента и футера.
+3. Подготовлен каркас калькулятора (разметка кнопок и экрана) как база для ЛР2.
 
-## Struktura papki
-1. `index.html` - tematicheskaya stranica.
-2. `site.css` - stili dlya tematicheskoy stranicy.
-3. `site.html` - razmetka kalkulyatora (podgotovka k Lab 2).
-4. `style.css` - stili kalkulyatora.
+## Структура папки
+1. `index.html` - тематическая страница.
+2. `site.css` - стили для тематической страницы.
+3. `site.html` - разметка калькулятора (подготовка к ЛР2).
+4. `style.css` - стили калькулятора.
 
-## Zapusk
-Otkryt `index.html` ili `site.html` v brauzere (ili cherez Live Server v VS Code).
+## Запуск
+Открыть `index.html` или `site.html` в браузере (или через Live Server в VS Code).
