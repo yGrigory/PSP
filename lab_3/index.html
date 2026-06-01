@@ -1,9 +1,17 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="ru">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Главсевморпуть - Сервис проводки</title>
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
+        "three/examples/jsm/": "https://unpkg.com/three@0.160.0/examples/jsm/"
+      }
+    }
+  </script>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -21,10 +29,11 @@
 
     <nav class="main-nav">
       <a href="#hero" class="nav-item">Главная</a>
-      <a href="#services" class="nav-item">Срочная информация</a>
-      <a href="#services" class="nav-item">Рассмотрение заявлений</a>
+      <a href="#urgent_info" class="nav-item">Срочная информация</a>
+      <a href="#applications_review" class="nav-item">Рассмотрение заявлений</a>
+      <a href="#lab3_wrap" class="nav-item">Lab 3 Catalog</a>
       <a href="#calc_wrap" class="nav-item">Ледокольная проводка</a>
-      <a href="#services" class="nav-item">Навигация и гидромет</a>
+      <a href="#navigation_hydromet" class="nav-item">Навигация и гидромет</a>
       <a href="#footer" class="nav-item">Поиск и спасание</a>
     </nav>
   </header>
@@ -47,18 +56,23 @@
     </section>
 
     <section class="services" id="services">
-      <article class="service-card js-alert" data-message="Сервис: Реестр заявок">
+      <article class="service-card js-alert" id="applications_review" data-message="Сервис: Реестр заявок">
         <h3>Реестр заявок</h3>
         <p>Контроль статусов заявок и назначений ледоколов.</p>
       </article>
-      <article class="service-card js-alert" data-message="Сервис: Гидрометданные">
+      <article class="service-card js-alert" id="urgent_info" data-message="Сервис: Гидрометданные">
         <h3>Гидрометданные</h3>
         <p>Оперативная информация о ледовой и метеорологической обстановке.</p>
       </article>
-      <article class="service-card js-alert" data-message="Сервис: Маршруты проводки">
+      <article class="service-card js-alert" id="navigation_hydromet" data-message="Сервис: Маршруты проводки">
         <h3>Маршруты проводки</h3>
         <p>Построение и согласование оптимальных маршрутов проводки.</p>
       </article>
+    </section>
+
+    <section class="lab3-section" id="lab3_wrap">
+      <h2>Каталог сервисов (ЛР 3)</h2>
+      <div id="lab3_root"></div>
     </section>
 
     <section class="calc-section is-hidden" id="calc_wrap">
@@ -135,6 +149,7 @@
     <div class="fio-info is-hidden" id="fio_info">Анчоус Фараон Фараонович</div>
   </footer>
 
+  <script type="module" src="main.js"></script>
   <script src="script.js"></script>
 </body>
 </html>

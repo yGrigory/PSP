@@ -1,0 +1,22 @@
+{
+  "name": "lab-6-fetch-vite",
+  "version": "1.0.0",
+  "description": "Lab 6: fetch API, promises and Vite build",
+  "main": "server/src/index.js",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "start": "node server/src/index.js",
+    "server": "nodemon server/src/index.js"
+  },
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.21.2",
+    "three": "^0.160.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.10",
+    "vite": "^5.4.21"
+  }
+}

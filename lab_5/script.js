@@ -1,4 +1,4 @@
-const resultNode = document.getElementById("result");
+﻿const resultNode = document.getElementById("result");
 const memoryNode = document.getElementById("memory");
 const calculatorNode = document.getElementById("calculator");
 const calcWrapNode = document.getElementById("calc_wrap");
