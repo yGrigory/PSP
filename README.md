@@ -1,79 +1,74 @@
 # Лабораторная работа 6
 
-## Смысл работы
+## Задание
 
-В этой лабораторной frontend обращается к backend через `Fetch API`.
+В лабораторной работе нужно:
 
-Frontend запускается через Vite, например на:
+- заменить callback-подход на `Promise`/`async`/`await`;
+- выполнять запросы к API через `fetch`;
+- собрать frontend через bundler `Vite`;
+- развернуть собранный bundle на сервере с API из 4-й лабораторной.
 
-```text
-http://localhost:5173
+Важно: ветка `lab_6` содержит только исходный код. Собранный bundle добавляется в ветку `lab_4`.
+
+## Как работает frontend
+
+Запросы выполняются через `fetch` в файле `modules/api.js`.
+
+Адреса API сделаны относительными в `modules/stockUrls.js`:
+
+```js
+this.baseUrl = "";
 ```
 
-Backend Express запускается отдельно на:
+Например:
+
+```js
+fetch("/stocks")
+```
+
+Когда bundle лежит на Express-сервере из 4-й лабораторной, страница и API открываются с одного origin:
 
 ```text
 http://localhost:3000
 ```
 
-Из-за разных портов браузер считает их разными origin. Поэтому без обхода CORS запросы frontend к backend должны блокироваться браузером.
+Поэтому CORS не блокирует запросы и расширение `CORS Unblock` не нужно.
 
-## Как сделана демонстрация CORS
-
-В `modules/stockUrls.js` frontend обращается напрямую к backend:
-
-```js
-this.baseUrl = "http://localhost:3000";
-```
-
-В `server/src/index.js` CORS-заголовки специально не добавлены.
-
-Поэтому без плагина в браузере запрос:
-
-```js
-fetch("http://localhost:3000/stocks")
-```
-
-должен вызвать CORS-ошибку в консоли DevTools.
-
-## Как проверить
-
-Установить зависимости:
+## Как собрать bundle
 
 ```powershell
 npm install
+npm run build
 ```
 
-Запустить backend:
+Команда собирает frontend в папку `dist/`. Эта папка не коммитится в ветку `lab_6`, потому что bundle должен лежать в ветке `lab_4`.
+
+## Что показывать
+
+1. Переключиться на ветку `lab_4`.
+2. Запустить сервер 4-й лабораторной:
 
 ```powershell
-npm run server
+npm install
+npm run start
 ```
 
-В другом терминале запустить frontend:
-
-```powershell
-npm run dev
-```
-
-Открыть страницу Vite, обычно:
+3. Открыть:
 
 ```text
-http://localhost:5173
+http://localhost:3000
 ```
 
-Открыть DevTools:
+4. В DevTools показать:
 
-- вкладка `Console` покажет CORS-ошибку;
-- вкладка `Network` покажет запрос к `http://localhost:3000/stocks`.
-
-После включения CORS-плагина в браузере запросы должны начать проходить, и карточки сервисов загрузятся.
+- `Network`: запросы `fetch` к `/stocks` проходят без CORS-ошибки;
+- `Sources`: видны только файлы bundle, а не исходные JS-модули frontend.
 
 ## Основные файлы
 
 - `modules/api.js` - обертка над `fetch`.
-- `modules/stockUrls.js` - прямые URL на backend `http://localhost:3000`.
+- `modules/stockUrls.js` - относительные URL API.
 - `pages/main/index.js` - загрузка списка сервисов через `fetch`.
 - `pages/product/index.js` - загрузка одной карточки через `fetch`.
-- `server/src/index.js` - Express backend без CORS middleware.
-- `vite.config.js` - сборка Vite без proxy.
+- `vite.config.js` - настройка сборки через Vite.
