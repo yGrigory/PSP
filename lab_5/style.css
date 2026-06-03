@@ -399,24 +399,6 @@ body {
   margin-bottom: 14px;
 }
 
-.lab3-homework-box {
-  margin-bottom: 14px;
-  padding: 12px;
-  border: 1px solid #cfe0f2;
-  border-radius: 12px;
-  background: #f8fcff;
-}
-
-.lab3-homework-box h3 {
-  color: var(--navy);
-  margin-bottom: 8px;
-}
-
-.lab3-homework-box p {
-  margin-bottom: 4px;
-  color: #173b63;
-}
-
 .lab3-grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));

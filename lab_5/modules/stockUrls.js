@@ -3,12 +3,17 @@ class StockUrls {
     this.baseUrl = "http://localhost:3000";
   }
 
+  withCacheBuster(url) {
+    const separator = url.includes("?") ? "&" : "?";
+    return `${url}${separator}_=${Date.now()}`;
+  }
+
   getStocks() {
-    return `${this.baseUrl}/stocks`;
+    return this.withCacheBuster(`${this.baseUrl}/stocks`);
   }
 
   getStockById(id) {
-    return `${this.baseUrl}/stocks/${id}`;
+    return this.withCacheBuster(`${this.baseUrl}/stocks/${id}`);
   }
 
   createStock() {
@@ -25,4 +30,3 @@ class StockUrls {
 }
 
 export const stockUrls = new StockUrls();
-
