@@ -1,20 +1,26 @@
 [
   {
     "id": 1,
-    "src": "https://i.pinimg.com/originals/c9/ea/65/c9ea654eb3a7398b1f702c758c1c4206.jpg",
-    "title": "Акция 1",
-    "text": "Такой акции вы еще не видели 1"
+    "src": "https://example.com/image.jpg",
+    "title": "новая акция",
+    "text": "Описание новой акции"
   },
   {
     "id": 2,
-    "src": "https://i.pinimg.com/originals/c9/ea/65/c9ea654eb3a7398b1f702c758c1c4206.jpg",
-    "title": "Акция 2",
-    "text": "Такой акции вы еще не видели 2"
+    "src": "https://images.unsplash.com/photo-1518527989017-5baca7a58d3c?auto=format&fit=crop&w=1200&q=80",
+    "title": "Экспресс-согласование маршрута",
+    "text": "Ускоренная подготовка навигационных рекомендаций и проверка ограничений по участкам пути."
   },
   {
     "id": 3,
-    "src": "https://i.pinimg.com/originals/c9/ea/65/c9ea654eb3a7398b1f702c758c1c4206.jpg",
-    "title": "Акция 3",
-    "text": "Такой акции вы еще не видели 3"
+    "src": "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1200&q=80",
+    "title": "Сопровождение каравана судов",
+    "text": "Контроль порядка следования, дистанции и скорости группы судов на всем участке маршрута."
+  },
+  {
+    "id": 4,
+    "src": "https://example.com/image.jpg",
+    "title": "Новая акция",
+    "text": "Описание новой акции"
   }
 ]

@@ -1,12 +1,11 @@
-﻿const fs = require("fs");
+const fs = require("fs");
 
 const readData = (filePath) => {
   try {
-    const raw = fs.readFileSync(filePath, "utf8");
-    const normalized = raw.replace(/^\uFEFF/, "");
-    return JSON.parse(normalized);
-  } catch (err) {
-    console.error("Ошибка чтения файла:", err);
+    const rawData = fs.readFileSync(filePath, "utf8").replace(/^\uFEFF/, "");
+    return JSON.parse(rawData);
+  } catch (error) {
+    console.error("Ошибка чтения файла:", error.message);
     return [];
   }
 };
@@ -14,8 +13,8 @@ const readData = (filePath) => {
 const writeData = (filePath, data) => {
   try {
     fs.writeFileSync(filePath, JSON.stringify(data, null, 2), "utf8");
-  } catch (err) {
-    console.error("Ошибка записи файла:", err);
+  } catch (error) {
+    console.error("Ошибка записи файла:", error.message);
   }
 };
 
@@ -23,3 +22,4 @@ module.exports = {
   readData,
   writeData
 };
+

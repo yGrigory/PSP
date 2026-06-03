@@ -1,63 +1,90 @@
-﻿const fileService = require("./fileService");
+const { readData, writeData } = require("./fileService");
 
-let dataFilePath;
+let stocksFilePath = "";
+let stocks = [];
 
 const init = (filePath) => {
-  dataFilePath = filePath;
+  stocksFilePath = filePath;
+  stocks = readData(stocksFilePath);
+};
+
+const saveStocks = () => {
+  writeData(stocksFilePath, stocks);
+};
+
+const getNextId = () => {
+  if (stocks.length === 0) {
+    return 1;
+  }
+
+  return Math.max(...stocks.map((stock) => stock.id)) + 1;
 };
 
 const findAll = (title) => {
-  const stocks = fileService.readData(dataFilePath);
-
   if (!title) {
     return stocks;
   }
 
-  return stocks.filter((stock) =>
-    String(stock.title).toLowerCase().includes(String(title).toLowerCase())
-  );
+  const normalizedTitle = title.toLowerCase();
+  return stocks.filter((stock) => stock.title.toLowerCase().includes(normalizedTitle));
 };
 
-const findOne = (id) => {
-  const stocks = fileService.readData(dataFilePath);
-  return stocks.find((stock) => stock.id === id);
+const findById = (id) => stocks.find((stock) => stock.id === id);
+
+const create = ({ src, title, text }) => {
+  const stock = {
+    id: getNextId(),
+    src,
+    title,
+    text
+  };
+
+  stocks.push(stock);
+  saveStocks();
+  return stock;
 };
 
-const create = (stockData) => {
-  const stocks = fileService.readData(dataFilePath);
-  const newId = stocks.length > 0 ? Math.max(...stocks.map((s) => s.id)) + 1 : 1;
+const update = (id, data) => {
+  const stock = findById(id);
 
-  const newStock = { id: newId, ...stockData };
-  stocks.push(newStock);
-  fileService.writeData(dataFilePath, stocks);
-
-  return newStock;
-};
-
-const update = (id, stockData) => {
-  const stocks = fileService.readData(dataFilePath);
-  const index = stocks.findIndex((stock) => stock.id === id);
-
-  if (index === -1) {
+  if (!stock) {
     return null;
   }
 
-  stocks[index] = { ...stocks[index], ...stockData, id };
-  fileService.writeData(dataFilePath, stocks);
+  if (data.src !== undefined) {
+    stock.src = data.src;
+  }
 
-  return stocks[index];
+  if (data.title !== undefined) {
+    stock.title = data.title;
+  }
+
+  if (data.text !== undefined) {
+    stock.text = data.text;
+  }
+
+  saveStocks();
+  return stock;
 };
 
 const remove = (id) => {
-  const stocks = fileService.readData(dataFilePath);
-  const filteredStocks = stocks.filter((stock) => stock.id !== id);
+  const stockIndex = stocks.findIndex((stock) => stock.id === id);
 
-  if (filteredStocks.length === stocks.length) {
+  if (stockIndex === -1) {
     return false;
   }
 
-  fileService.writeData(dataFilePath, filteredStocks);
+  stocks.splice(stockIndex, 1);
+  saveStocks();
   return true;
 };
 
-module.exports = { init, findAll, findOne, create, update, remove };
+module.exports = {
+  init,
+  findAll,
+  findById,
+  create,
+  update,
+  remove
+};
+
