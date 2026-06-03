@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ДЗ 2 - 3D модель</title>
+    <link rel="stylesheet" href="./style.css" />
+    <script type="importmap">
+      {
+        "imports": {
+          "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
+          "three/examples/jsm/": "https://unpkg.com/three@0.160.0/examples/jsm/"
+        }
+      }
+    </script>
+  </head>
+  <body>
+    <main class="page">
+      <section class="hero">
+        <p class="eyebrow">Домашнее задание 2</p>
+        <h1>3D модель для страницы “Подробнее”</h1>
+        <p>
+          Отдельная демонстрация второй части домашнего задания: GLB-модель по
+          теме ледокольной проводки, ручное вращение, зум и быстрые ракурсы.
+        </p>
+      </section>
+      <div id="model_root"></div>
+    </main>
+    <script type="module" src="./main.js"></script>
+  </body>
+</html>
