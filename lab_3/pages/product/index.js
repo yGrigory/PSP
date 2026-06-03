@@ -1,5 +1,6 @@
 ﻿import BackButton from "../../components/back-button/index.js";
 import Product from "../../components/product/index.js";
+import ProductModel from "../../components/product-model/index.js";
 
 export default class ProductPage {
   constructor(parent, id, products, onBack) {
@@ -37,7 +38,7 @@ export default class ProductPage {
     `;
   }
 
-  render() {
+  async render() {
     const data = this.getData();
     if (!data) {
       this.renderNotFound();
@@ -54,5 +55,11 @@ export default class ProductPage {
     const productRoot = document.getElementById("lab3_product_root");
     const product = new Product(productRoot, data);
     product.render();
+
+    const productBody = productRoot.querySelector(".lab3-product-body");
+    if (productBody) {
+      const productModel = new ProductModel(productBody);
+      await productModel.render();
+    }
   }
 }

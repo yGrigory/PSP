@@ -1,4 +1,4 @@
-﻿import ProductCard from "../../components/product-card/index.js";
+import ProductCard from "../../components/product-card/index.js";
 import ProductPage from "../product/index.js";
 import { getProducts } from "../../data/products.js";
 

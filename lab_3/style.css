@@ -506,6 +506,44 @@ body {
   margin-bottom: 4px;
 }
 
+.lab3-model-wrap {
+  margin-top: 14px;
+  padding-top: 12px;
+  border-top: 1px dashed #b7d0e6;
+}
+
+.lab3-model-wrap h4 {
+  color: var(--navy);
+  margin-bottom: 8px;
+}
+
+.lab3-model-view {
+  width: 100%;
+  height: 280px;
+  border: 1px solid #cfe0f2;
+  border-radius: 10px;
+  background: linear-gradient(180deg, #f5f9ff, #ebf3ff);
+  overflow: hidden;
+}
+
+.lab3-model-controls {
+  margin-top: 8px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.lab3-model-btn {
+  color: var(--navy);
+  border-color: #a6bfd8;
+  background: #ffffff;
+  padding: 6px 10px;
+}
+
+.lab3-model-btn:hover {
+  background: #e8f2ff;
+}
+
 @media (max-width: 900px) {
   .services {
     grid-template-columns: 1fr;
