@@ -1,15 +1,29 @@
-﻿const resultNode = document.getElementById("result");
+const resultNode = document.getElementById("result");
 const memoryNode = document.getElementById("memory");
 const calculatorNode = document.getElementById("calculator");
+const calcWrapNode = document.getElementById("calc_wrap");
+const toggleCalcBtn = document.getElementById("btn_show_calc");
+const fioBtn = document.getElementById("btn_show_fio");
+const fioInfoNode = document.getElementById("fio_info");
+const toggleHistoryBtn = document.getElementById("btn_toggle_history");
+const clearHistoryBtn = document.getElementById("btn_clear_history");
+const historyPanelNode = document.getElementById("history_panel");
+const historyListNode = document.getElementById("history_list");
 
 let firstOperand = "";
 let secondOperand = "";
 let operation = null;
 let shouldResetSecond = false;
 let memoryValue = 0;
+const historyItems = [];
 
-const calcBackgrounds = ["#222", "#1d3557", "#1f3b2d", "#5a2a27"];
-const resultColors = ["#ffffff", "#ffe08a", "#a8ffb0", "#a8d5ff"];
+const calcBackgrounds = [
+  "linear-gradient(165deg, #0a3f77, #052e5f)",
+  "linear-gradient(165deg, #0e4d87, #083768)",
+  "linear-gradient(165deg, #0f5b7f, #0a3f77)",
+  "linear-gradient(165deg, #19506f, #0f3558)"
+];
+const resultColors = ["#0c2239", "#0a3f77", "#14548f", "#1d2d44"];
 let bgIndex = 0;
 let textIndex = 0;
 
@@ -19,6 +33,34 @@ function updateDisplay(value) {
 
 function updateMemory() {
   memoryNode.textContent = `M: ${formatNumber(memoryValue)}`;
+}
+
+function renderHistory() {
+  if (!historyListNode) {
+    return;
+  }
+
+  historyListNode.innerHTML = "";
+  if (historyItems.length === 0) {
+    const li = document.createElement("li");
+    li.textContent = "История пуста";
+    historyListNode.appendChild(li);
+    return;
+  }
+
+  historyItems.forEach((item) => {
+    const li = document.createElement("li");
+    li.textContent = item;
+    historyListNode.appendChild(li);
+  });
+}
+
+function addHistory(entry) {
+  historyItems.unshift(entry);
+  if (historyItems.length > 20) {
+    historyItems.pop();
+  }
+  renderHistory();
 }
 
 function formatNumber(value) {
@@ -50,7 +92,22 @@ function setCurrentValue(value) {
   updateDisplay(firstOperand || "0");
 }
 
+function getDisplayedNumber() {
+  const rawText = (resultNode.textContent || "").trim().replace(",", ".");
+  const displayed = Number(rawText);
+  if (!Number.isFinite(displayed)) {
+    return null;
+  }
+  return displayed;
+}
+
 function appendToNumber(current, char) {
+  if (current === "-" && char === ".") {
+    return "-0.";
+  }
+  if (current === "-") {
+    return `-${char}`;
+  }
   if (char === "." && current.includes(".")) {
     return current;
   }
@@ -80,11 +137,24 @@ function appendDigit(digit) {
 }
 
 function setOperation(nextOperation) {
+  if (nextOperation === "-" && operation === null && firstOperand === "") {
+    firstOperand = "-";
+    updateDisplay(firstOperand);
+    return;
+  }
+
+  if (nextOperation === "-" && operation !== null && (shouldResetSecond || secondOperand === "")) {
+    secondOperand = "-";
+    shouldResetSecond = false;
+    updateDisplay(secondOperand);
+    return;
+  }
+
   if (firstOperand === "") {
     firstOperand = "0";
   }
 
-  if (operation !== null && secondOperand !== "") {
+  if (operation !== null && secondOperand !== "" && secondOperand !== "-") {
     calculate();
   }
 
@@ -101,21 +171,24 @@ function clearAll() {
 }
 
 function calculate() {
-  if (operation === null || secondOperand === "") {
+  if (firstOperand === "-" || operation === null || secondOperand === "" || secondOperand === "-") {
     return;
   }
 
-  const a = Number(firstOperand);
-  const b = Number(secondOperand);
+  const aText = firstOperand;
+  const bText = secondOperand;
+  const opSymbol = operation;
+  const a = Number(aText);
+  const b = Number(bText);
   let computed = 0;
 
-  if (operation === "+") {
+  if (opSymbol === "+") {
     computed = a + b;
-  } else if (operation === "-") {
+  } else if (opSymbol === "-") {
     computed = a - b;
-  } else if (operation === "x") {
+  } else if (opSymbol === "x") {
     computed = a * b;
-  } else if (operation === "/") {
+  } else if (opSymbol === "/") {
     computed = b === 0 ? NaN : a / b;
   }
 
@@ -130,11 +203,12 @@ function calculate() {
   operation = null;
   shouldResetSecond = false;
   updateDisplay(firstOperand);
+  addHistory(`${aText} ${opSymbol} ${bText} = ${firstOperand}`);
 }
 
-function applyUnary(fn) {
+function applyUnary(fn, label) {
   const current = getCurrentValue();
-  if (current === "") {
+  if (current === "" || current === "-") {
     return;
   }
 
@@ -145,40 +219,47 @@ function applyUnary(fn) {
     return;
   }
 
-  setCurrentValue(formatNumber(result));
+  const nextValue = formatNumber(result);
+  setCurrentValue(nextValue);
+  if (label) {
+    addHistory(`${label}(${current}) = ${nextValue}`);
+  }
 }
 
 function toggleSign() {
-  applyUnary((value) => (value === 0 ? 0 : value * -1));
+  if (operation === null) {
+    if (firstOperand === "") {
+      firstOperand = "-";
+      updateDisplay(firstOperand);
+      return;
+    }
+    if (firstOperand === "-") {
+      firstOperand = "";
+      updateDisplay("0");
+      return;
+    }
+    applyUnary((value) => (value === 0 ? 0 : value * -1), "+/-");
+    return;
+  }
+
+  if (shouldResetSecond || secondOperand === "") {
+    secondOperand = "-";
+    shouldResetSecond = false;
+    updateDisplay(secondOperand);
+    return;
+  }
+  if (secondOperand === "-") {
+    secondOperand = "";
+    updateDisplay("0");
+    return;
+  }
+  secondOperand = String(Number(secondOperand) * -1);
+  updateDisplay(secondOperand);
+  addHistory(`+/- = ${secondOperand}`);
 }
 
 function percent() {
-  applyUnary((value) => value / 100);
-}
-
-function square() {
-  applyUnary((value) => value * value);
-}
-
-function cube() {
-  applyUnary((value) => value * value * value);
-}
-
-function sqrt() {
-  applyUnary((value) => (value < 0 ? NaN : Math.sqrt(value)));
-}
-
-function factorial() {
-  applyUnary((value) => {
-    if (!Number.isInteger(value) || value < 0 || value > 170) {
-      return NaN;
-    }
-    let result = 1;
-    for (let i = 2; i <= value; i += 1) {
-      result *= i;
-    }
-    return result;
-  });
+  applyUnary((value) => value / 100, "%");
 }
 
 function backspace() {
@@ -197,19 +278,55 @@ function addTripleZero() {
   appendDigit("0");
 }
 
+function memorySave() {
+  const displayed = getDisplayedNumber();
+  if (displayed === null) {
+    return;
+  }
+  memoryValue = displayed;
+  updateMemory();
+}
+
+function memoryRead() {
+  const memText = formatNumber(memoryValue);
+
+  if (operation !== null) {
+    secondOperand = memText;
+    shouldResetSecond = false;
+    updateDisplay(secondOperand);
+    return;
+  }
+
+  firstOperand = memText;
+  updateDisplay(firstOperand);
+}
+
+function memoryClear() {
+  memoryValue = 0;
+  updateMemory();
+}
+
 function memoryPlus() {
-  memoryValue += Number(getCurrentValue() || "0");
+  const displayed = getDisplayedNumber();
+  if (displayed === null) {
+    return;
+  }
+  memoryValue += displayed;
   updateMemory();
 }
 
 function memoryMinus() {
-  memoryValue -= Number(getCurrentValue() || "0");
+  const displayed = getDisplayedNumber();
+  if (displayed === null) {
+    return;
+  }
+  memoryValue -= displayed;
   updateMemory();
 }
 
 function toggleBackground() {
   bgIndex = (bgIndex + 1) % calcBackgrounds.length;
-  calculatorNode.style.backgroundColor = calcBackgrounds[bgIndex];
+  calculatorNode.style.background = calcBackgrounds[bgIndex];
 }
 
 function toggleResultColor() {
@@ -220,7 +337,7 @@ function toggleResultColor() {
 function resetTheme() {
   bgIndex = 0;
   textIndex = 0;
-  calculatorNode.style.backgroundColor = calcBackgrounds[0];
+  calculatorNode.style.background = calcBackgrounds[0];
   resultNode.style.color = resultColors[0];
 }
 
@@ -240,15 +357,51 @@ document.getElementById("btn_op_clear").onclick = () => clearAll();
 document.getElementById("btn_op_sign").onclick = () => toggleSign();
 document.getElementById("btn_op_percent").onclick = () => percent();
 document.getElementById("btn_op_backspace").onclick = () => backspace();
-document.getElementById("btn_op_sqrt").onclick = () => sqrt();
-document.getElementById("btn_op_square").onclick = () => square();
-document.getElementById("btn_op_cube").onclick = () => cube();
-document.getElementById("btn_op_factorial").onclick = () => factorial();
+document.getElementById("btn_op_mem_save").onclick = () => memorySave();
+document.getElementById("btn_op_mem_read").onclick = () => memoryRead();
+document.getElementById("btn_op_mem_clear").onclick = () => memoryClear();
 document.getElementById("btn_op_mem_plus").onclick = () => memoryPlus();
 document.getElementById("btn_op_mem_minus").onclick = () => memoryMinus();
 document.getElementById("btn_ui_bg").onclick = () => toggleBackground();
 document.getElementById("btn_ui_text").onclick = () => toggleResultColor();
 document.getElementById("btn_ui_reset").onclick = () => resetTheme();
 
+if (toggleCalcBtn && calcWrapNode) {
+  toggleCalcBtn.onclick = () => {
+    const hidden = calcWrapNode.classList.toggle("is-hidden");
+    toggleCalcBtn.textContent = hidden ? "Калькулятор" : "Скрыть калькулятор";
+  };
+}
+
+if (fioBtn && fioInfoNode) {
+  fioBtn.onclick = () => {
+    const hidden = fioInfoNode.classList.toggle("is-hidden");
+    fioBtn.textContent = hidden ? "ФИО" : "Скрыть ФИО";
+  };
+}
+
+if (toggleHistoryBtn && historyPanelNode) {
+  toggleHistoryBtn.onclick = () => {
+    const hidden = historyPanelNode.classList.toggle("is-hidden");
+    toggleHistoryBtn.textContent = hidden ? "История" : "Скрыть историю";
+  };
+}
+
+if (clearHistoryBtn) {
+  clearHistoryBtn.onclick = () => {
+    historyItems.length = 0;
+    renderHistory();
+  };
+}
+
+document.querySelectorAll(".js-alert").forEach((node) => {
+  node.addEventListener("click", (event) => {
+    event.preventDefault();
+    const message = node.dataset.message || "Кнопка нажата";
+    alert(message);
+  });
+});
+
 updateMemory();
 updateDisplay("0");
+renderHistory();
