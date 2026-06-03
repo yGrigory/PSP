@@ -1,6 +1,6 @@
 class StockUrls {
   constructor() {
-    this.baseUrl = "";
+    this.baseUrl = "http://localhost:3000";
   }
 
   getStocks() {
