@@ -1,0 +1,9 @@
+{
+  "name": "psp-dz-1",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "gcd": "node cli/homework-cli.cjs gcd 180 240 300 420",
+    "rle": "node cli/homework-cli.cjs rle ССССММЛЛЛЛСССМ"
+  }
+}
