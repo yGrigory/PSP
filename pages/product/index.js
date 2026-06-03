@@ -1,7 +1,7 @@
 import BackButton from "../../components/back-button/index.js";
 import Product from "../../components/product/index.js";
 import ProductModel from "../../components/product-model/index.js";
-import { ajax } from "../../modules/ajax.js";
+import { api } from "../../modules/api.js";
 import { stockUrls } from "../../modules/stockUrls.js";
 import { mapStockToService } from "../../modules/stockMapper.js";
 
@@ -12,15 +12,14 @@ export default class ProductPage {
     this.onBack = onBack;
   }
 
-  getData() {
-    ajax.get(stockUrls.getStockById(this.id), (data, status) => {
-      if (status !== 200 || !data) {
-        this.renderNotFound();
-        return;
-      }
-
+  async getData() {
+    try {
+      const data = await api.get(stockUrls.getStockById(this.id));
       this.renderData(mapStockToService(data));
-    });
+    } catch (error) {
+      console.error("Lab 6 fetch detail error:", error);
+      this.renderNotFound();
+    }
   }
 
   get pageRoot() {
@@ -70,9 +69,8 @@ export default class ProductPage {
     backButton.render();
 
     const productRoot = document.getElementById("lab3_product_root");
-    productRoot.innerHTML = '<p class="lab3-status">Загрузка карточки из API...</p>';
+    productRoot.innerHTML = '<p class="lab3-status">Загрузка карточки через Fetch API...</p>';
 
     this.getData();
   }
 }
-
