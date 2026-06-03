@@ -6,6 +6,7 @@ const stocksService = require("./services/stocksService");
 const app = express();
 const PORT = 3000;
 const STOCKS_FILE_PATH = path.join(__dirname, "data", "stocks.json");
+const PUBLIC_PATH = path.join(__dirname, "..", "public");
 
 stocksService.init(STOCKS_FILE_PATH);
 
@@ -16,11 +17,20 @@ app.use((req, res, next) => {
   next();
 });
 
-app.get("/", (req, res) => {
-  res.send("Express сервер лабораторной работы 4 работает");
-});
-
 app.use("/stocks", stocksRouter);
+app.use(express.static(PUBLIC_PATH));
+
+app.get("*", (req, res, next) => {
+  if (req.path.startsWith("/stocks")) {
+    return next();
+  }
+
+  return res.sendFile(path.join(PUBLIC_PATH, "index.html"), (error) => {
+    if (error) {
+      res.status(404).json({ error: "Frontend bundle не найден" });
+    }
+  });
+});
 
 app.use((req, res) => {
   res.status(404).json({ error: "Маршрут не найден" });
