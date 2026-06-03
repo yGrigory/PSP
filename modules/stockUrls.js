@@ -1,14 +1,19 @@
 class StockUrls {
   constructor() {
-    this.baseUrl = window.location.port === "3000" ? "" : "http://localhost:3000";
+    this.baseUrl = "http://localhost:3000";
+  }
+
+  withCacheBuster(url) {
+    const separator = url.includes("?") ? "&" : "?";
+    return `${url}${separator}_=${Date.now()}`;
   }
 
   getStocks() {
-    return `${this.baseUrl}/stocks`;
+    return this.withCacheBuster(`${this.baseUrl}/stocks`);
   }
 
   getStockById(id) {
-    return `${this.baseUrl}/stocks/${id}`;
+    return this.withCacheBuster(`${this.baseUrl}/stocks/${id}`);
   }
 
   createStock() {

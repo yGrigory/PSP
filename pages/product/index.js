@@ -1,7 +1,7 @@
 import BackButton from "../../components/back-button/index.js";
 import Product from "../../components/product/index.js";
 import ProductModel from "../../components/product-model/index.js";
-import { api } from "../../modules/api.js";
+import { ajax } from "../../modules/ajax.js";
 import { stockUrls } from "../../modules/stockUrls.js";
 import { mapStockToService } from "../../modules/stockMapper.js";
 
@@ -12,9 +12,15 @@ export default class ProductPage {
     this.onBack = onBack;
   }
 
-  async getData() {
-    const data = await api.get(stockUrls.getStockById(this.id));
-    return mapStockToService(data);
+  getData() {
+    ajax.get(stockUrls.getStockById(this.id), (data, status) => {
+      if (status !== 200 || !data) {
+        this.renderNotFound();
+        return;
+      }
+
+      this.renderData(mapStockToService(data));
+    });
   }
 
   get pageRoot() {
@@ -55,7 +61,7 @@ export default class ProductPage {
     }
   }
 
-  async render() {
+  render() {
     this.parent.innerHTML = "";
     this.parent.insertAdjacentHTML("afterbegin", this.getHTML());
 
@@ -64,15 +70,9 @@ export default class ProductPage {
     backButton.render();
 
     const productRoot = document.getElementById("lab3_product_root");
-    productRoot.innerHTML = '<p class="lab3-status">Загрузка карточки через fetch...</p>';
+    productRoot.innerHTML = '<p class="lab3-status">Загрузка карточки из API...</p>';
 
-    try {
-      const data = await this.getData();
-      await this.renderData(data);
-    } catch (error) {
-      console.error(error);
-      this.renderNotFound();
-    }
+    this.getData();
   }
 }
 

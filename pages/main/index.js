@@ -1,6 +1,6 @@
 import ProductCard from "../../components/product-card/index.js";
 import ProductPage from "../product/index.js";
-import { api } from "../../modules/api.js";
+import { ajax } from "../../modules/ajax.js";
 import { stockUrls } from "../../modules/stockUrls.js";
 import { mapStockToService } from "../../modules/stockMapper.js";
 
@@ -10,10 +10,16 @@ export default class MainPage {
     this.items = [];
   }
 
-  async getData() {
-    const data = await api.get(stockUrls.getStocks());
-    this.items = data.map(mapStockToService);
-    return this.items;
+  getData() {
+    ajax.get(stockUrls.getStocks(), (data, status) => {
+      if (status !== 200 || !Array.isArray(data)) {
+        this.renderError("Не удалось загрузить сервисы из API ЛР4.");
+        return;
+      }
+
+      this.items = data.map(mapStockToService);
+      this.renderData(this.items);
+    });
   }
 
   get pageRoot() {
@@ -23,7 +29,7 @@ export default class MainPage {
   getHTML() {
     return `
       <section class="lab3-page" id="lab3_main_page">
-        <p class="lab3-subtitle">Карточки ниже загружаются через fetch API и Promise.</p>
+        <p class="lab3-subtitle">Карточки ниже загружаются AJAX-запросом из API ЛР4.</p>
         <div class="lab3-grid" id="lab3_cards"></div>
       </section>
     `;
@@ -61,20 +67,12 @@ export default class MainPage {
     }
   }
 
-  async render() {
+  render() {
     this.parent.innerHTML = "";
     this.parent.insertAdjacentHTML("afterbegin", this.getHTML());
 
     const cardsRoot = document.getElementById("lab3_cards");
-    cardsRoot.innerHTML = '<p class="lab3-status">Загрузка сервисов через fetch...</p>';
-
-    try {
-      const items = await this.getData();
-      this.renderData(items);
-    } catch (error) {
-      console.error(error);
-      this.renderError("Не удалось загрузить сервисы из API.");
-    }
+    cardsRoot.innerHTML = '<p class="lab3-status">Загрузка сервисов из API...</p>';
+    this.getData();
   }
 }
-
